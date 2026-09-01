@@ -26,16 +26,15 @@ Two things follow from that:
 
 ## Before it goes live
 
-A few things still need your real details. Search the files for `REPLACE_`
-and swap in the real value.
+Name, address, phone, hours and Instagram are all real and match the Google
+listing, which is what local search wants. What's left:
 
-| Token | Where | What to put |
-|---|---|---|
-| `REPLACE_PHONE` | `index.html` | Your number as people should read it, e.g. `(905) 555 0142` |
-| `REPLACE_PHONE_DIGITS` | `index.html` | The same number, digits only, e.g. `+19055550142`. This is what the "Text to book" button dials. |
-| `REPLACE_INSTAGRAM_URL` | `index.html` | Full link to your profile |
-| `REPLACE_INSTAGRAM_HANDLE` | `index.html` | Your handle without the @ |
-| `REPLACE_SITE_URL` | `index.html` | Your domain once you have one, e.g. `https://minazhhair.com` |
+- **A domain.** Once there is one, add `"url"` and `"image"` back to the
+  structured data block in the `<head>` as absolute URLs.
+- **The address.** 8 Gilbank Dr is a house. It's public on the Google
+  listing and there's a sign on the building, so the site shows it. If she'd
+  rather hold it back until an appointment is confirmed, that's the Where row
+  in the Visit section.
 
 Also worth a look:
 

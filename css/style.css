@@ -1,5 +1,5 @@
 /* ==========================================================
-   Minazh Beauty & Hair Salon
+   Minazh Hair Salon
    ========================================================== */
 
 :root{
@@ -255,6 +255,17 @@ a{ color:inherit }
 }
 .hero__text{ padding-bottom:clamp(0rem, 2vw, 2rem) }
 .hero h1{ margin:0 0 1.9rem }
+.hero__hours{
+  margin:1.6rem 0 0;
+  font-size:.9rem;
+  letter-spacing:.02em;
+  color:var(--ink-2);
+  max-width:34ch;
+  padding-top:1.1rem;
+  border-top:1px solid var(--line);
+}
+.hero__hours span{ display:block; color:var(--muted) }
+
 .hero__cta{
   display:flex; align-items:center; gap:1.9rem;
   flex-wrap:wrap; margin-top:2.4rem;
@@ -595,5 +606,16 @@ a{ color:inherit }
 @media (max-width: 540px){
   .grid{ grid-template-columns:1fr }
   .svc__row{ gap:.6rem }
-  .hero__cta{ gap:1.4rem }
+  .hero__hours{
+  margin:1.6rem 0 0;
+  font-size:.9rem;
+  letter-spacing:.02em;
+  color:var(--ink-2);
+  max-width:34ch;
+  padding-top:1.1rem;
+  border-top:1px solid var(--line);
+}
+.hero__hours span{ display:block; color:var(--muted) }
+
+.hero__cta{ gap:1.4rem }
 }
