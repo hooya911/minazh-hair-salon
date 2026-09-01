@@ -1,6 +1,9 @@
 (function () {
   'use strict';
 
+  /* only hide the reveal targets if we're actually here to un-hide them */
+  document.documentElement.classList.add('js');
+
   /* current year in the footer */
   var year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();

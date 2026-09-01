@@ -3,17 +3,17 @@
    ========================================================== */
 
 :root{
-  --bone:      #faf6f0;
-  --bone-2:    #f1e9dd;
-  --bone-3:    #e8ddcd;
-  --ink:       #221d19;
-  --ink-2:     #463d34;
-  --muted:     #857767;
-  --line:      #e3d8c8;
-  --clay:      #a35f3e;
-  --clay-soft: #c58b6c;
+  --bone:      #f3f1ea;
+  --bone-2:    #e9e5db;
+  --bone-3:    #d9d3c5;
+  --ink:       #1e1d19;
+  --ink-2:     #444036;
+  --muted:     #7d786a;
+  --line:      #dcd6c7;
+  --clay:      #7c3f42;
+  --clay-soft: #b0838a;
 
-  --serif: "Fraunces", "Hoefler Text", Georgia, "Times New Roman", serif;
+  --serif: "Instrument Serif", "Hoefler Text", Georgia, "Times New Roman", serif;
   --sans:  "Karla", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
   --pad: clamp(1.25rem, 5vw, 5rem);
@@ -50,11 +50,11 @@ img{ max-width:100%; display:block }
 
 h1,h2,h3{
   font-family:var(--serif);
-  font-weight:300;
-  line-height:1.02;
-  letter-spacing:-.018em;
+  font-weight:400;
+  line-height:1.03;
+  letter-spacing:-.012em;
   margin:0;
-  font-variation-settings:"opsz" 96;
+  text-wrap:balance;
 }
 h1{ font-size:clamp(3rem, 9.5vw, 6.4rem) }
 h2{ font-size:clamp(2.1rem, 5.4vw, 3.7rem) }
@@ -135,21 +135,21 @@ a{ color:inherit }
   width:100%; height:100%;
   background-color:var(--bone-2);
   background-image:
-    linear-gradient(150deg, rgba(197,139,108,.16), rgba(163,95,62,.05) 55%, rgba(34,29,25,.07));
+    linear-gradient(150deg, rgba(176,131,138,.16), rgba(124,63,66,.05) 55%, rgba(34,29,25,.07));
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
   position:relative;
 }
 /* real photos layer on top; a missing file just falls back to the wash above */
-.photo--hero  { background-image:url("../images/hero.jpg"),   linear-gradient(150deg, rgba(197,139,108,.22), rgba(34,29,25,.10)) }
-.photo--studio{ background-image:url("../images/studio.jpg"), linear-gradient(200deg, rgba(197,139,108,.18), rgba(34,29,25,.08)) }
-.photo--w1{ background-image:url("../images/work-01.jpg"), linear-gradient(160deg, rgba(197,139,108,.20), rgba(34,29,25,.08)) }
-.photo--w2{ background-image:url("../images/work-02.jpg"), linear-gradient(210deg, rgba(163,95,62,.16), rgba(34,29,25,.08)) }
-.photo--w3{ background-image:url("../images/work-03.jpg"), linear-gradient(130deg, rgba(197,139,108,.20), rgba(34,29,25,.06)) }
-.photo--w4{ background-image:url("../images/work-04.jpg"), linear-gradient(190deg, rgba(163,95,62,.18), rgba(34,29,25,.10)) }
-.photo--w5{ background-image:url("../images/work-05.jpg"), linear-gradient(140deg, rgba(197,139,108,.14), rgba(34,29,25,.08)) }
-.photo--w6{ background-image:url("../images/work-06.jpg"), linear-gradient(220deg, rgba(163,95,62,.20), rgba(34,29,25,.07)) }
+.photo--hero  { background-image:url("../images/hero.jpg"),   linear-gradient(150deg, rgba(176,131,138,.22), rgba(34,29,25,.10)) }
+.photo--studio{ background-image:url("../images/studio.jpg"), linear-gradient(200deg, rgba(176,131,138,.18), rgba(34,29,25,.08)) }
+.photo--w1{ background-image:url("../images/work-01.jpg"), linear-gradient(160deg, rgba(176,131,138,.20), rgba(34,29,25,.08)) }
+.photo--w2{ background-image:url("../images/work-02.jpg"), linear-gradient(210deg, rgba(124,63,66,.16), rgba(34,29,25,.08)) }
+.photo--w3{ background-image:url("../images/work-03.jpg"), linear-gradient(130deg, rgba(176,131,138,.20), rgba(34,29,25,.06)) }
+.photo--w4{ background-image:url("../images/work-04.jpg"), linear-gradient(190deg, rgba(124,63,66,.18), rgba(34,29,25,.10)) }
+.photo--w5{ background-image:url("../images/work-05.jpg"), linear-gradient(140deg, rgba(176,131,138,.14), rgba(34,29,25,.08)) }
+.photo--w6{ background-image:url("../images/work-06.jpg"), linear-gradient(220deg, rgba(124,63,66,.20), rgba(34,29,25,.07)) }
 
 .caption{
   font-family:var(--serif);
@@ -335,26 +335,36 @@ a{ color:inherit }
 }
 .svc__row{
   display:grid;
-  grid-template-columns:auto 1fr;
-  gap:clamp(1.25rem, 4vw, 3.5rem);
+  grid-template-columns:minmax(11rem, .8fr) 1.2fr;
+  gap:clamp(.6rem, 4vw, 3.5rem);
+  align-items:baseline;
   padding:clamp(1.75rem, 3vw, 2.6rem) 0;
   border-top:1px solid var(--line);
   transition:padding-left .45s var(--ease);
 }
 .svc__row:last-child{ border-bottom:1px solid var(--line) }
 .svc__row:hover{ padding-left:.85rem }
-.svc__num{
-  font-family:var(--serif);
-  font-size:.9rem;
-  color:var(--clay-soft);
-  letter-spacing:.1em;
-  padding-top:.6rem;
+.svc__row h3{
+  margin:0;
   transition:color .35s var(--ease);
 }
-.svc__row:hover .svc__num{ color:var(--clay) }
-.svc__body{ max-width:56ch }
-.svc__body h3{ margin:0 0 .6rem }
-.svc__body p{ color:var(--ink-2); margin:0 }
+.svc__row:hover h3{ color:var(--clay) }
+.svc__body{ max-width:52ch }
+.svc__body p{ color:var(--ink-2); margin:0 0 .9rem }
+.svc__tags{
+  list-style:none; margin:0; padding:0;
+  display:flex; flex-wrap:wrap; gap:.4rem .5rem;
+}
+.svc__tags li{
+  font-size:.73rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--muted);
+  border:1px solid var(--line);
+  border-radius:100px;
+  padding:.3rem .8rem;
+  background:var(--bone);
+}
 .svc__note{
   max-width:var(--max);
   padding:clamp(2rem, 4vw, 3rem) var(--pad) 0;
@@ -534,14 +544,15 @@ a{ color:inherit }
 
 /* ── reveal ───────────────────────────────────────────── */
 
-.reveal{
+.reveal{ opacity:1 }
+.js .reveal{
   opacity:0;
   transform:translateY(22px);
   transition:opacity .9s var(--ease), transform .9s var(--ease);
 }
 .reveal.is-in{ opacity:1; transform:none }
 @media (prefers-reduced-motion: reduce){
-  .reveal{ opacity:1; transform:none; transition:none }
+  .reveal, .js .reveal{ opacity:1; transform:none; transition:none }
 }
 
 /* ── responsive ───────────────────────────────────────── */
@@ -562,12 +573,13 @@ a{ color:inherit }
   .grid{ grid-template-columns:repeat(2, 1fr) }
   .tile--tall .photo{ aspect-ratio:1/1 }
 
+  .svc__row{ grid-template-columns:1fr; gap:.7rem }
+
   .visit__inner{ grid-template-columns:1fr }
 }
 
 @media (max-width: 540px){
   .grid{ grid-template-columns:1fr }
-  .svc__row{ grid-template-columns:1fr; gap:.5rem }
-  .svc__num{ padding-top:0 }
+  .svc__row{ gap:.6rem }
   .hero__cta{ gap:1.4rem }
 }
