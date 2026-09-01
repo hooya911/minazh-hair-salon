@@ -1,4 +1,4 @@
-# Minazh Beauty & Hair Salon
+# Minazh Hair Salon
 
 A one page website for a private home hair studio in Aurora, Ontario.
 Plain HTML, CSS and a little JavaScript. No build step, no framework, nothing

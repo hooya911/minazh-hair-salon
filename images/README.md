@@ -8,13 +8,18 @@ finished while you gather photos.
 | Filename       | Where it shows      | Best shape        | Suggestion                                   |
 |----------------|---------------------|-------------------|----------------------------------------------|
 | `hero.jpg`     | Top of the page     | Tall (3:4)        | Your strongest finished-hair shot            |
-| `studio.jpg`   | About section       | Tall (4:5)        | The studio, the chair, the mirror            |
-| `work-01.jpg`  | Gallery (tall)      | Tall (3:4)        | Balayage                                     |
-| `work-02.jpg`  | Gallery             | Square            | Blunt cut                                    |
-| `work-03.jpg`  | Gallery             | Square            | Root colour                                  |
-| `work-04.jpg`  | Gallery (tall)      | Tall (3:4)        | Keratin or nanoplasty smoothing              |
-| `work-05.jpg`  | Gallery             | Square            | Blow dry                                     |
+| `studio.jpg`   | About section       | Tall (4:5)        | The room: the chair, the lit mirror, the wood floor |
+| `work-01.jpg`  | Gallery (tall)      | Tall (3:4)        | Blonde balayage                              |
+| `work-02.jpg`  | Gallery             | Square            | Sharp bob                                    |
+| `work-03.jpg`  | Gallery             | Square            | Root colour and toner                        |
+| `work-04.jpg`  | Gallery (tall)      | Tall (3:4)        | Smoothing treatment                          |
+| `work-05.jpg`  | Gallery             | Square            | Brunette bob                                 |
 | `work-06.jpg`  | Gallery             | Square            | Colour correction, before and after          |
+
+The gallery sits on a near-black band, so photos shot against a light wall
+will pop there. Send me the original files rather than screenshots. Screenshots
+of your Google photos come out soft and carry the Google interface around the
+edges.
 
 Tips:
 - Shoot in daylight near a window. It beats any filter.

@@ -3,15 +3,15 @@
    ========================================================== */
 
 :root{
-  --bone:      #f3f1ea;
-  --bone-2:    #e9e5db;
-  --bone-3:    #d9d3c5;
-  --ink:       #1e1d19;
-  --ink-2:     #444036;
-  --muted:     #7d786a;
-  --line:      #dcd6c7;
-  --clay:      #7c3f42;
-  --clay-soft: #b0838a;
+  --bone:      #f4efe6;
+  --bone-2:    #eae1d4;
+  --bone-3:    #dbcfbb;
+  --ink:       #171410;
+  --ink-2:     #40382e;
+  --muted:     #7c7264;
+  --line:      #ded4c3;
+  --clay:      #96602f;
+  --clay-soft: #cfa372;
 
   --serif: "Instrument Serif", "Hoefler Text", Georgia, "Times New Roman", serif;
   --sans:  "Karla", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -135,21 +135,21 @@ a{ color:inherit }
   width:100%; height:100%;
   background-color:var(--bone-2);
   background-image:
-    linear-gradient(150deg, rgba(176,131,138,.16), rgba(124,63,66,.05) 55%, rgba(34,29,25,.07));
+    linear-gradient(150deg, rgba(207,163,114,.16), rgba(150,96,47,.05) 55%, rgba(23,20,16,.07));
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
   position:relative;
 }
 /* real photos layer on top; a missing file just falls back to the wash above */
-.photo--hero  { background-image:url("../images/hero.jpg"),   linear-gradient(150deg, rgba(176,131,138,.22), rgba(34,29,25,.10)) }
-.photo--studio{ background-image:url("../images/studio.jpg"), linear-gradient(200deg, rgba(176,131,138,.18), rgba(34,29,25,.08)) }
-.photo--w1{ background-image:url("../images/work-01.jpg"), linear-gradient(160deg, rgba(176,131,138,.20), rgba(34,29,25,.08)) }
-.photo--w2{ background-image:url("../images/work-02.jpg"), linear-gradient(210deg, rgba(124,63,66,.16), rgba(34,29,25,.08)) }
-.photo--w3{ background-image:url("../images/work-03.jpg"), linear-gradient(130deg, rgba(176,131,138,.20), rgba(34,29,25,.06)) }
-.photo--w4{ background-image:url("../images/work-04.jpg"), linear-gradient(190deg, rgba(124,63,66,.18), rgba(34,29,25,.10)) }
-.photo--w5{ background-image:url("../images/work-05.jpg"), linear-gradient(140deg, rgba(176,131,138,.14), rgba(34,29,25,.08)) }
-.photo--w6{ background-image:url("../images/work-06.jpg"), linear-gradient(220deg, rgba(124,63,66,.20), rgba(34,29,25,.07)) }
+.photo--hero  { background-image:url("../images/hero.jpg"),   linear-gradient(150deg, rgba(207,163,114,.22), rgba(23,20,16,.10)) }
+.photo--studio{ background-image:url("../images/studio.jpg"), linear-gradient(200deg, rgba(207,163,114,.18), rgba(23,20,16,.08)) }
+.photo--w1{ background-image:url("../images/work-01.jpg"), linear-gradient(160deg, rgba(207,163,114,.20), rgba(23,20,16,.08)) }
+.photo--w2{ background-image:url("../images/work-02.jpg"), linear-gradient(210deg, rgba(150,96,47,.16), rgba(23,20,16,.08)) }
+.photo--w3{ background-image:url("../images/work-03.jpg"), linear-gradient(130deg, rgba(207,163,114,.20), rgba(23,20,16,.06)) }
+.photo--w4{ background-image:url("../images/work-04.jpg"), linear-gradient(190deg, rgba(150,96,47,.18), rgba(23,20,16,.10)) }
+.photo--w5{ background-image:url("../images/work-05.jpg"), linear-gradient(140deg, rgba(207,163,114,.14), rgba(23,20,16,.08)) }
+.photo--w6{ background-image:url("../images/work-06.jpg"), linear-gradient(220deg, rgba(150,96,47,.20), rgba(23,20,16,.07)) }
 
 .caption{
   font-family:var(--serif);
@@ -163,7 +163,7 @@ a{ color:inherit }
 
 .nav{
   position:sticky; top:0; z-index:50;
-  background:color-mix(in srgb, var(--bone) 86%, transparent);
+  background:color-mix(in srgb, var(--bone) 94%, transparent);
   backdrop-filter:saturate(1.4) blur(14px);
   border-bottom:1px solid transparent;
   transition:border-color .4s var(--ease), background .4s var(--ease);
@@ -380,10 +380,18 @@ a{ color:inherit }
 
 .work{
   position:relative; z-index:2;
-  max-width:var(--max); margin:0 auto;
-  padding:clamp(4rem, 9vw, 8rem) var(--pad);
+  background:var(--ink);
+  color:var(--bone);
+  padding:clamp(4rem, 9vw, 8rem) 0;
 }
+.work__inner{ max-width:var(--max); margin:0 auto; padding:0 var(--pad) }
 .work__head{ margin-bottom:clamp(2rem, 4vw, 3.5rem) }
+.work .eyebrow{ color:#9b9082 }
+.work .eyebrow::before{ background:var(--clay-soft) }
+.work .photo{
+  background-color:#241f19;
+  background-image:linear-gradient(150deg, rgba(207,163,114,.16), rgba(150,96,47,.06) 55%, rgba(0,0,0,.25));
+}
 .grid{
   display:grid;
   grid-template-columns:repeat(3, 1fr);
@@ -402,8 +410,15 @@ a{ color:inherit }
   font-size:.78rem;
   letter-spacing:.14em;
   text-transform:uppercase;
-  color:var(--muted);
+  color:#9b9082;
   margin-top:.8rem;
+}
+.work__note{
+  margin:clamp(2rem, 4vw, 3rem) 0 0;
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.1rem;
+  color:var(--clay-soft);
 }
 
 /* ── reviews ──────────────────────────────────────────── */
@@ -411,7 +426,6 @@ a{ color:inherit }
 .words{
   position:relative; z-index:2;
   padding:clamp(3.5rem, 8vw, 7rem) 0 clamp(3rem, 6vw, 5rem);
-  border-top:1px solid var(--line);
 }
 .words__head{
   max-width:var(--max); margin:0 auto;
