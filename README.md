@@ -12,6 +12,18 @@ images/           your photos go here (see images/README.md)
 favicon.svg       the little tab icon
 ```
 
+## This is a spec build
+
+The site was built on spec to show the salon owner, not commissioned by her.
+Two things follow from that:
+
+- There's a `noindex` tag in the `<head>` so the demo stays out of Google
+  while it's being shown around. It's commented. Delete it on launch day,
+  otherwise the site will never rank for anything.
+- The photos and review quotes belong to her business. Use her own photos
+  rather than ones customers uploaded to her listing, and she'll want her
+  clients' okay before any of their hair goes on a public site.
+
 ## Before it goes live
 
 A few things still need your real details. Search the files for `REPLACE_`
