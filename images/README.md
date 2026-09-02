@@ -21,6 +21,13 @@ will pop there. Send me the original files rather than screenshots. Screenshots
 of your Google photos come out soft and carry the Google interface around the
 edges.
 
+## Cropping
+
+`tools/crop.html` does the cropping and the naming for you. Open it in any
+browser (double click the file), pick a slot, paste or drop a photo, drag the
+box, hit save. It writes the file with the right name at the right shape.
+Everything runs in the browser tab, nothing is uploaded.
+
 Tips:
 - Shoot in daylight near a window. It beats any filter.
 - Save them around 1600px on the long edge and under 400KB each so the page

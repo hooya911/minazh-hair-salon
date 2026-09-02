@@ -9,6 +9,7 @@ index.html        the whole page
 css/style.css     all the styling
 js/main.js        menu, scroll fades, footer year
 images/           your photos go here (see images/README.md)
+tools/crop.html   crops photos to the right shape and filename
 favicon.svg       the little tab icon
 ```
 

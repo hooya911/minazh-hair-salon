@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Photo cropper</title>
+<style>
+  :root{
+    --bone:#f4efe6; --bone-2:#eae1d4; --ink:#171410; --ink-2:#40382e;
+    --muted:#7c7264; --line:#ded4c3; --clay:#96602f; --clay-soft:#cfa372;
+    --sans:"Karla","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --serif:"Instrument Serif","Hoefler Text",Georgia,serif;
+  }
+  *,*::before,*::after{ box-sizing:border-box }
+  body{
+    margin:0; background:var(--bone); color:var(--ink);
+    font-family:var(--sans); line-height:1.6;
+    padding:2rem 1.25rem 5rem;
+  }
+  .wrap{ max-width:56rem; margin:0 auto }
+  h1{ font-family:var(--serif); font-weight:400; font-size:2.6rem; margin:0 0 .4rem; letter-spacing:-.01em }
+  .sub{ color:var(--muted); margin:0 0 2.5rem; max-width:60ch }
+  h2{
+    font-size:.72rem; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--muted); font-weight:600; margin:0 0 1rem;
+  }
+  section{ margin-bottom:2.5rem }
+
+  /* slot picker */
+  .slots{ display:grid; grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr)); gap:.6rem }
+  .slot{
+    text-align:left; cursor:pointer; font:inherit;
+    background:var(--bone-2); border:1px solid var(--line); border-radius:3px;
+    padding:.7rem .85rem; transition:border-color .2s, background .2s;
+  }
+  .slot:hover{ border-color:var(--clay-soft) }
+  .slot[aria-pressed="true"]{ background:var(--ink); border-color:var(--ink); color:var(--bone) }
+  .slot b{ display:block; font-weight:500; font-size:.9rem }
+  .slot small{ display:block; color:var(--muted); font-size:.74rem; letter-spacing:.06em }
+  .slot[aria-pressed="true"] small{ color:var(--clay-soft) }
+  .slot.done::after{ content:" ✓ saved"; font-size:.7rem; color:var(--clay); letter-spacing:.08em }
+  .slot[aria-pressed="true"].done::after{ color:var(--clay-soft) }
+
+  /* drop zone */
+  .drop{
+    border:1px dashed var(--line); border-radius:4px; background:var(--bone-2);
+    padding:3.5rem 1.5rem; text-align:center; color:var(--muted);
+    transition:border-color .2s, background .2s;
+  }
+  .drop.over{ border-color:var(--clay); background:#efe6d8 }
+  .drop p{ margin:0 0 .4rem }
+  .drop kbd{
+    font:inherit; background:var(--bone); border:1px solid var(--line);
+    border-radius:3px; padding:.1rem .4rem;
+  }
+
+  /* crop stage */
+  .stage{ position:relative; display:inline-block; max-width:100%; line-height:0; touch-action:none; overflow:hidden }
+  .stage img{ max-width:100%; max-height:65vh; display:block; user-select:none; -webkit-user-drag:none }
+  .box{
+    position:absolute; cursor:move;
+    box-shadow:0 0 0 9999px rgba(23,20,16,.62);
+    outline:1.5px solid var(--bone);
+  }
+  .box::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:
+      linear-gradient(to right, transparent 33.33%, rgba(244,239,230,.35) 33.33%, rgba(244,239,230,.35) 33.5%, transparent 33.5%,
+                      transparent 66.66%, rgba(244,239,230,.35) 66.66%, rgba(244,239,230,.35) 66.83%, transparent 66.83%),
+      linear-gradient(to bottom, transparent 33.33%, rgba(244,239,230,.35) 33.33%, rgba(244,239,230,.35) 33.5%, transparent 33.5%,
+                      transparent 66.66%, rgba(244,239,230,.35) 66.66%, rgba(244,239,230,.35) 66.83%, transparent 66.83%);
+  }
+  .handle{
+    position:absolute; right:4px; bottom:4px; width:20px; height:20px;
+    background:var(--bone); border:1.5px solid var(--ink); border-radius:50%;
+    cursor:nwse-resize;
+  }
+
+  .row{ display:flex; gap:1rem; align-items:center; flex-wrap:wrap; margin-top:1.5rem }
+  button.act{
+    font:inherit; cursor:pointer; border-radius:100px; padding:.8rem 1.7rem;
+    background:var(--ink); color:var(--bone); border:1px solid var(--ink);
+    transition:background .25s, color .25s;
+  }
+  button.act:hover{ background:transparent; color:var(--ink) }
+  button.ghost{ background:transparent; color:var(--ink) }
+  button.ghost:hover{ background:var(--ink); color:var(--bone) }
+  .hint{ color:var(--muted); font-size:.88rem }
+  [hidden]{ display:none !important }
+
+  .steps{ border-top:1px solid var(--line); padding-top:1.5rem; color:var(--ink-2); font-size:.94rem }
+  .steps ol{ margin:.5rem 0 0; padding-left:1.2rem }
+  .steps li{ margin-bottom:.35rem }
+  code{ background:var(--bone-2); padding:.1rem .35rem; border-radius:3px; font-size:.88em }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Photo cropper</h1>
+  <p class="sub">Crops a photo to the exact shape a slot on the site needs and saves it with the right filename. Everything happens in this browser tab. Nothing is uploaded anywhere.</p>
+
+  <section>
+    <h2>1. Pick the slot</h2>
+    <div class="slots" id="slots"></div>
+  </section>
+
+  <section>
+    <h2>2. Add the photo</h2>
+    <div class="drop" id="drop">
+      <p><strong>Paste a screenshot</strong> with <kbd>Ctrl</kbd>+<kbd>V</kbd>, or <kbd>Cmd</kbd>+<kbd>V</kbd> on a Mac.</p>
+      <p>You can also drag an image file here, or <button class="act ghost" id="pick" style="padding:.4rem 1.1rem;font-size:.85rem">choose a file</button></p>
+      <input type="file" id="file" accept="image/*" hidden>
+    </div>
+
+    <div id="editor" hidden>
+      <div class="stage" id="stage">
+        <img id="img" alt="">
+        <div class="box" id="box"><span class="handle" id="handle"></span></div>
+      </div>
+      <div class="row">
+        <button class="act" id="save">Save as <span id="saveName"></span></button>
+        <button class="act ghost" id="reset">Recentre</button>
+        <button class="act ghost" id="clear">Different photo</button>
+        <span class="hint">Drag the box to move it. Drag the circle to resize.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="steps">
+    <h2>3. Then</h2>
+    <p>Your browser drops the cropped files in Downloads. When you have the ones you want, upload them to the <code>images</code> folder on GitHub and they'll appear on the site.</p>
+    <ol>
+      <li>Crop as many as you like. Each one saves with the filename the site expects.</li>
+      <li>Upload them all at once to <code>images/</code> in the repo.</li>
+      <li>Photos you skip keep showing the warm colour wash, so the page still looks finished.</li>
+    </ol>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  var SLOTS = [
+    { file:'hero.jpg',    label:'Hero',            ratio:3/4, note:'tall, 3:4' },
+    { file:'studio.jpg',  label:'The room',        ratio:4/5, note:'tall, 4:5' },
+    { file:'work-01.jpg', label:'Blonde balayage', ratio:3/4, note:'tall, 3:4' },
+    { file:'work-02.jpg', label:'Sharp bob',       ratio:1,   note:'square' },
+    { file:'work-03.jpg', label:'Root & toner',    ratio:1,   note:'square' },
+    { file:'work-04.jpg', label:'Smoothing',       ratio:3/4, note:'tall, 3:4' },
+    { file:'work-05.jpg', label:'Brunette bob',    ratio:1,   note:'square' },
+    { file:'work-06.jpg', label:'To icy blonde',   ratio:1,   note:'square' }
+  ];
+  var LONG_EDGE = 1600;
+
+  var slotsEl = document.getElementById('slots');
+  var drop    = document.getElementById('drop');
+  var fileIn  = document.getElementById('file');
+  var editor  = document.getElementById('editor');
+  var stage   = document.getElementById('stage');
+  var img     = document.getElementById('img');
+  var box     = document.getElementById('box');
+  var handle  = document.getElementById('handle');
+  var saveName= document.getElementById('saveName');
+
+  var current = 0;
+  var crop = { x:0, y:0, w:0 };   // display px; height derives from the ratio
+
+  /* ── slot buttons ─────────────────────────────────────── */
+  var buttons = SLOTS.map(function(s, i){
+    var b = document.createElement('button');
+    b.className = 'slot';
+    b.type = 'button';
+    b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+    b.innerHTML = '<b></b><small></small>';
+    b.querySelector('b').textContent = s.label;
+    b.querySelector('small').textContent = s.note;
+    b.addEventListener('click', function(){ select(i); });
+    slotsEl.appendChild(b);
+    return b;
+  });
+
+  function select(i){
+    current = i;
+    buttons.forEach(function(b, j){ b.setAttribute('aria-pressed', String(i === j)); });
+    saveName.textContent = SLOTS[i].file;
+    if (img.naturalWidth) fitCrop();
+  }
+
+  /* ── loading an image ─────────────────────────────────── */
+  function load(blob){
+    if (!blob || !/^image\//.test(blob.type)) return;
+    var url = URL.createObjectURL(blob);
+    img.onload = function(){
+      URL.revokeObjectURL(url);
+      drop.hidden = true;
+      editor.hidden = false;
+      fitCrop();
+    };
+    img.src = url;
+  }
+
+  fileIn.addEventListener('change', function(){ load(fileIn.files[0]); });
+  document.getElementById('pick').addEventListener('click', function(){ fileIn.click(); });
+
+  ['dragenter','dragover'].forEach(function(t){
+    drop.addEventListener(t, function(e){ e.preventDefault(); drop.classList.add('over'); });
+  });
+  ['dragleave','drop'].forEach(function(t){
+    drop.addEventListener(t, function(e){ e.preventDefault(); drop.classList.remove('over'); });
+  });
+  drop.addEventListener('drop', function(e){
+    if (e.dataTransfer.files.length) load(e.dataTransfer.files[0]);
+  });
+
+  document.addEventListener('paste', function(e){
+    var items = (e.clipboardData || {}).items || [];
+    for (var i = 0; i < items.length; i++){
+      if (items[i].type.indexOf('image') === 0){ load(items[i].getAsFile()); return; }
+    }
+  });
+
+  /* ── the crop box ─────────────────────────────────────── */
+  function ratio(){ return SLOTS[current].ratio; }
+  function boxH(w){ return w / ratio(); }
+
+  function fitCrop(){
+    var W = img.clientWidth, H = img.clientHeight;
+    var w = Math.min(W, H * ratio());
+    crop.w = w;
+    crop.x = (W - w) / 2;
+    crop.y = (H - boxH(w)) / 2;
+    draw();
+  }
+
+  function clamp(){
+    var W = img.clientWidth, H = img.clientHeight;
+    crop.w = Math.max(40, Math.min(crop.w, W, H * ratio()));
+    crop.x = Math.max(0, Math.min(crop.x, W - crop.w));
+    crop.y = Math.max(0, Math.min(crop.y, H - boxH(crop.w)));
+  }
+
+  function draw(){
+    clamp();
+    box.style.left   = crop.x + 'px';
+    box.style.top    = crop.y + 'px';
+    box.style.width  = crop.w + 'px';
+    box.style.height = boxH(crop.w) + 'px';
+  }
+
+  window.addEventListener('resize', function(){ if (img.naturalWidth) fitCrop(); });
+
+  var drag = null;
+  function start(e, mode){
+    e.preventDefault();
+    drag = { mode:mode, px:e.clientX, py:e.clientY, x:crop.x, y:crop.y, w:crop.w };
+    (e.target.setPointerCapture ? e.target : stage).setPointerCapture(e.pointerId);
+  }
+  box.addEventListener('pointerdown', function(e){ if (e.target !== handle) start(e, 'move'); });
+  handle.addEventListener('pointerdown', function(e){ e.stopPropagation(); start(e, 'size'); });
+
+  document.addEventListener('pointermove', function(e){
+    if (!drag) return;
+    var dx = e.clientX - drag.px, dy = e.clientY - drag.py;
+    if (drag.mode === 'move'){
+      crop.x = drag.x + dx;
+      crop.y = drag.y + dy;
+    } else {
+      crop.w = drag.w + Math.max(dx, dy * ratio());
+    }
+    draw();
+  });
+  document.addEventListener('pointerup', function(){ drag = null; });
+
+  /* ── export ───────────────────────────────────────────── */
+  document.getElementById('save').addEventListener('click', function(){
+    var scale = img.naturalWidth / img.clientWidth;
+    var sw = Math.round(crop.w * scale);
+    var sh = Math.round(boxH(crop.w) * scale);
+    var sx = Math.round(crop.x * scale);
+    var sy = Math.round(crop.y * scale);
+
+    var out = sw >= sh
+      ? { w: Math.min(LONG_EDGE, sw), h: Math.round(Math.min(LONG_EDGE, sw) / (sw / sh)) }
+      : { h: Math.min(LONG_EDGE, sh), w: Math.round(Math.min(LONG_EDGE, sh) * (sw / sh)) };
+
+    var c = document.createElement('canvas');
+    c.width = out.w; c.height = out.h;
+    var ctx = c.getContext('2d');
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(img, sx, sy, sw, sh, 0, 0, out.w, out.h);
+
+    var name = SLOTS[current].file;
+    c.toBlob(function(blob){
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function(){ URL.revokeObjectURL(a.href); }, 1000);
+    }, 'image/jpeg', 0.9);
+
+    buttons[current].classList.add('done');
+  });
+
+  document.getElementById('reset').addEventListener('click', fitCrop);
+  document.getElementById('clear').addEventListener('click', function(){
+    editor.hidden = true;
+    drop.hidden = false;
+    img.removeAttribute('src');
+    fileIn.value = '';
+  });
+
+  select(0);
+})();
+</script>
+</body>
+</html>
