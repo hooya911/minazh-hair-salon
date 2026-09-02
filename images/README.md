@@ -5,16 +5,18 @@ them up automatically, no code changes needed. Until a file exists, that slot
 shows a warm colour wash instead of a broken image, so the page still looks
 finished while you gather photos.
 
-| Filename       | Where it shows      | Best shape        | Suggestion                                   |
-|----------------|---------------------|-------------------|----------------------------------------------|
-| `hero.jpg`     | Top of the page     | Tall (3:4)        | Your strongest finished-hair shot            |
-| `studio.jpg`   | About section       | Tall (4:5)        | The room: the chair, the lit mirror, the wood floor |
-| `work-01.jpg`  | Gallery (tall)      | Tall (3:4)        | Long layers (added, but only 384px wide)     |
-| `work-02.jpg`  | Gallery             | Square            | Sharp bob                                    |
-| `work-03.jpg`  | Gallery             | Square            | Root colour and toner                        |
-| `work-04.jpg`  | Gallery (tall)      | Tall (3:4)        | Smoothing treatment                          |
-| `work-05.jpg`  | Gallery             | Square            | Brunette bob                                 |
-| `work-06.jpg`  | Gallery             | Square            | Colour correction, before and after          |
+| Filename       | Where            | Shape      | What's in it now                      |
+|----------------|------------------|------------|---------------------------------------|
+| `hero.jpg`     | Top of the page  | Tall 3:4   | Honey blonde, big curls, in the studio |
+| `studio.jpg`   | About section    | Tall 4:5   | The room. Still needed                 |
+| `work-01.jpg`  | Gallery, tall    | Tall 3:4   | Long layers on dark hair               |
+| `work-02.jpg`  | Gallery          | Square     | Ash blonde with a shadow root          |
+| `work-03.jpg`  | Gallery, tall    | Tall 3:4   | Keratin smoothing                      |
+| `work-04.jpg`  | Gallery          | Square     | Glossed bronde                         |
+| `work-05.jpg`  | Gallery          | Square     | Caramel face framing                   |
+| `work-06.jpg`  | Gallery, tall    | Tall 3:4   | Men's cut                              |
+| `work-07.jpg`  | Gallery          | Square     | Glass straight, very long              |
+| `work-08.jpg`  | Gallery          | Square     | Soft blonde, mid length                |
 
 The gallery sits on a near-black band, so photos shot against a light wall
 will pop there. Send me the original files rather than screenshots. Screenshots

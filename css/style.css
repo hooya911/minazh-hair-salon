@@ -151,6 +151,8 @@ a{ color:inherit }
 .photo--w4{ background-image:url("../images/work-04.jpg"), var(--wash) }
 .photo--w5{ background-image:url("../images/work-05.jpg"), var(--wash) }
 .photo--w6{ background-image:url("../images/work-06.jpg"), var(--wash) }
+.photo--w7{ background-image:url("../images/work-07.jpg"), var(--wash) }
+.photo--w8{ background-image:url("../images/work-08.jpg"), var(--wash) }
 
 .caption{
   font-family:var(--serif);
