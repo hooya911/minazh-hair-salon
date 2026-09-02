@@ -132,24 +132,25 @@ a{ color:inherit }
 /* ── photo slots ──────────────────────────────────────── */
 
 .photo{
+  --tint:var(--bone-2);
+  --wash:linear-gradient(150deg, rgba(207,163,114,.16), rgba(150,96,47,.05) 55%, rgba(23,20,16,.07));
   width:100%; height:100%;
-  background-color:var(--bone-2);
-  background-image:
-    linear-gradient(150deg, rgba(207,163,114,.16), rgba(150,96,47,.05) 55%, rgba(23,20,16,.07));
+  background-color:var(--tint);
+  background-image:var(--wash);
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
   position:relative;
 }
 /* real photos layer on top; a missing file just falls back to the wash above */
-.photo--hero  { background-image:url("../images/hero.jpg"),   linear-gradient(150deg, rgba(207,163,114,.22), rgba(23,20,16,.10)) }
-.photo--studio{ background-image:url("../images/studio.jpg"), linear-gradient(200deg, rgba(207,163,114,.18), rgba(23,20,16,.08)) }
-.photo--w1{ background-image:url("../images/work-01.jpg"), linear-gradient(160deg, rgba(207,163,114,.20), rgba(23,20,16,.08)) }
-.photo--w2{ background-image:url("../images/work-02.jpg"), linear-gradient(210deg, rgba(150,96,47,.16), rgba(23,20,16,.08)) }
-.photo--w3{ background-image:url("../images/work-03.jpg"), linear-gradient(130deg, rgba(207,163,114,.20), rgba(23,20,16,.06)) }
-.photo--w4{ background-image:url("../images/work-04.jpg"), linear-gradient(190deg, rgba(150,96,47,.18), rgba(23,20,16,.10)) }
-.photo--w5{ background-image:url("../images/work-05.jpg"), linear-gradient(140deg, rgba(207,163,114,.14), rgba(23,20,16,.08)) }
-.photo--w6{ background-image:url("../images/work-06.jpg"), linear-gradient(220deg, rgba(150,96,47,.20), rgba(23,20,16,.07)) }
+.photo--hero{ background-image:url("../images/hero.jpg"), var(--wash) }
+.photo--studio{ background-image:url("../images/studio.jpg"), var(--wash) }
+.photo--w1{ background-image:url("../images/work-01.jpg"), var(--wash) }
+.photo--w2{ background-image:url("../images/work-02.jpg"), var(--wash) }
+.photo--w3{ background-image:url("../images/work-03.jpg"), var(--wash) }
+.photo--w4{ background-image:url("../images/work-04.jpg"), var(--wash) }
+.photo--w5{ background-image:url("../images/work-05.jpg"), var(--wash) }
+.photo--w6{ background-image:url("../images/work-06.jpg"), var(--wash) }
 
 .caption{
   font-family:var(--serif);
@@ -400,9 +401,12 @@ a{ color:inherit }
 .work .eyebrow{ color:#9b9082 }
 .work .eyebrow::before{ background:var(--clay-soft) }
 .work .photo{
-  background-color:#241f19;
-  background-image:linear-gradient(150deg, rgba(207,163,114,.16), rgba(150,96,47,.06) 55%, rgba(0,0,0,.25));
+  --tint:#241f19;
+  --wash:linear-gradient(150deg, rgba(207,163,114,.14), rgba(150,96,47,.05) 55%, rgba(0,0,0,.28));
 }
+/* .link is near-black by default, which vanished against the dark band */
+.work .link{ color:var(--bone) }
+.work .link:hover{ color:var(--clay-soft); border-color:var(--clay-soft) }
 .grid{
   display:grid;
   grid-template-columns:repeat(3, 1fr);

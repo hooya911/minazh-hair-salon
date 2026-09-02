@@ -9,7 +9,7 @@ finished while you gather photos.
 |----------------|---------------------|-------------------|----------------------------------------------|
 | `hero.jpg`     | Top of the page     | Tall (3:4)        | Your strongest finished-hair shot            |
 | `studio.jpg`   | About section       | Tall (4:5)        | The room: the chair, the lit mirror, the wood floor |
-| `work-01.jpg`  | Gallery (tall)      | Tall (3:4)        | Blonde balayage                              |
+| `work-01.jpg`  | Gallery (tall)      | Tall (3:4)        | Long layers (added, but only 384px wide)     |
 | `work-02.jpg`  | Gallery             | Square            | Sharp bob                                    |
 | `work-03.jpg`  | Gallery             | Square            | Root colour and toner                        |
 | `work-04.jpg`  | Gallery (tall)      | Tall (3:4)        | Smoothing treatment                          |
@@ -31,7 +31,9 @@ Everything runs in the browser tab, nothing is uploaded.
 Tips:
 - Shoot in daylight near a window. It beats any filter.
 - Save them around 1600px on the long edge and under 400KB each so the page
-  stays fast on phones.
+  stays fast on phones. Anything under about 800px wide will look soft.
+- On Google Maps, click a photo so it opens full screen BEFORE you right click
+  and save. Saving straight from the grid gives you a 384px thumbnail.
 - The gallery captions live in `index.html` under the `work` section. Change
   them to match whatever photos you use.
 - Ask clients before posting their photos.

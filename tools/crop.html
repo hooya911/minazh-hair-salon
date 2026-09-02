@@ -124,6 +124,8 @@
         <button class="act ghost" id="clear">Different photo</button>
         <span class="hint">Drag the box to move it. Drag the circle to resize.</span>
       </div>
+      <div class="row" id="warn" hidden style="color:var(--clay);font-size:.9rem;margin-top:.4rem">
+      </div>
     </div>
   </section>
 
@@ -304,6 +306,12 @@
     }, 'image/jpeg', 0.9);
 
     buttons[current].classList.add('done');
+
+    var warn = document.getElementById('warn');
+    warn.hidden = out.w >= 800;
+    warn.textContent = out.w < 800
+      ? 'Saved, but that came out ' + out.w + 'px wide, which will look soft. Try to start from a bigger photo.'
+      : '';
   });
 
   document.getElementById('reset').addEventListener('click', fitCrop);
