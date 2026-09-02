@@ -45,6 +45,30 @@
     if (window.innerWidth > 900 && !drawer.hidden) setMenu(false);
   });
 
+  /* Photos.
+     The stylesheet points each slot at a .jpg. Phones and screenshot tools
+     hand you .png or .jpeg just as often, and a slot whose file has the
+     "wrong" extension would silently stay empty. So try the alternatives too
+     and use whichever one actually exists. */
+  var EXTS = ['jpg', 'jpeg', 'png', 'webp', 'JPG', 'JPEG', 'PNG'];
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-photo]'), function (el) {
+    var slot = el.getAttribute('data-photo');
+    var i = 0;
+
+    (function next() {
+      if (i >= EXTS.length) return;          // none found, the colour wash stays
+      var url = 'images/' + slot + '.' + EXTS[i++];
+      var probe = new Image();
+      probe.onload = function () {
+        var wash = getComputedStyle(el).getPropertyValue('--wash').trim();
+        el.style.backgroundImage = 'url("' + url + '")' + (wash ? ', ' + wash : '');
+      };
+      probe.onerror = next;
+      probe.src = url;
+    })();
+  });
+
   /* fade sections in as they arrive */
   var items = document.querySelectorAll('.reveal');
 

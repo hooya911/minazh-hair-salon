@@ -1,6 +1,8 @@
 # Photos
 
-Drop your own JPGs in this folder using these exact filenames. The site picks
+Drop your photos in this folder using these exact base names. The extension
+doesn't matter: .jpg, .jpeg, .png and .webp all work, so a screenshot saved as
+a PNG is fine as long as it's named `work-02.png` and not `Screenshot 5.png`. The site picks
 them up automatically, no code changes needed. Until a file exists, that slot
 shows a warm colour wash instead of a broken image, so the page still looks
 finished while you gather photos.
